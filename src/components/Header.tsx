@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
+
 import StaticFooter from "./StaticFooter";
 import StaticHeader from "./StaticHeader";
+import Transcribe from "./Transcribe";
+import Recorder from "./Recorder";
+import { Route, Routes, useNavigate } from "react-router";
 
 const Header = () => {
   const [recordedUrl, setRecordedUrl] = useState("");
@@ -11,6 +15,14 @@ const Header = () => {
   const mediaRecorder = useRef<MediaRecorder | null>(null);
   const chunks = useRef<Blob[]>([]);
   const timerRef = useRef<number | null>(null);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (recordedUrl) {
+      navigate("/transcribe");
+    }
+  }, [recordedUrl]);
 
   const startRecording = async () => {
     try {
@@ -50,7 +62,6 @@ const Header = () => {
     setIsRecording(false);
   };
 
-  // Cleanup blob URL
   useEffect(() => {
     return () => {
       if (recordedUrl) URL.revokeObjectURL(recordedUrl);
@@ -58,7 +69,10 @@ const Header = () => {
   }, [recordedUrl]);
 
   const formatTime = (s: number) =>
-    `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+    `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(
+      2,
+      "0"
+    )}`;
 
   return (
     <section>
@@ -69,70 +83,31 @@ const Header = () => {
 
             <div className="h-px w-full bg-black" />
 
-            {/* Recorder Card */}
-            <div className="rounded-xl border-2 border-black bg-white p-5">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-2 rounded-lg border-2 border-black px-3 py-1.5 font-mono text-sm">
-                    {isRecording && (
-                      <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
-                    )}
-                    {formatTime(seconds)}
-                  </div>
-
-                  <p className="text-sm font-medium text-gray-700">
-                    {isRecording ? "Recording..." : "Idle"}
-                  </p>
-                </div>
-
-                <div className="flex gap-3">
-                  <button
-                    onClick={startRecording}
-                    disabled={isRecording}
-                    className="rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
-                  >
-                    Record 🎙️
-                  </button>
-
-                  <button
-                    onClick={stopRecording}
-                    disabled={!isRecording}
-                    className="rounded-lg border-2 border-black px-4 py-2 text-sm font-semibold disabled:opacity-40"
-                  >
-                    Stop ⏹️
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Audio Player */}
-            {recordedUrl && (
-              <div className="animate-fade-in rounded-xl border-2 border-black bg-white p-4">
-                <p className="mb-2 text-sm font-semibold text-gray-800">
-                  🎧 Recorded Audio
-                </p>
-
-                <audio controls src={recordedUrl} className="w-full" />
-
-                <div className="mt-3 flex justify-between text-xs text-gray-500">
-                  <span>Ready to play</span>
-                  <a
-                    href={recordedUrl}
-                    download="recording.webm"
-                    className="font-medium text-black underline"
-                  >
-                    Download
-                  </a>
-                </div>
-              </div>
-            )}
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Recorder
+                    isRecording={isRecording}
+                    startRecording={startRecording}
+                    stopRecording={stopRecording}
+                    formatTime={formatTime}
+                    seconds={seconds}
+                  />
+                }
+              />
+              <Route
+                path="/transcribe"
+                element={<Transcribe recordedUrl={recordedUrl} />}
+              />
+            </Routes>
 
             <StaticFooter />
           </div>
 
           <img
-            className="h-[420px] w-full rounded-xl object-cover"
-            src="https://images.pexels.com/photos/34285778/pexels-photo-34285778.jpeg"
+            className="h-96 w-full rounded-xl object-cover"
+            src="/sideimg.png"
             alt=""
           />
         </div>
