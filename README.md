@@ -1,73 +1,112 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+# 🌉 Speech Bridge
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+> **Status:** 🚧 Under Active Development
 
-## React Compiler
+**Speech Bridge** is a **privacy-first, real-time speech transcription and translation web app** that runs entirely **in the browser**.
+It allows users to **record spoken audio**, instantly **transcribe it**, and **translate it into multiple languages** — with **no audio data sent to any server**.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Built with **React + TypeScript**, powered by **Vite**, and styled using **Tailwind CSS**, Speech Bridge focuses on speed, simplicity, and user privacy.
 
-## Expanding the ESLint configuration
+![Speech Bridge Screenshot](https://raw.githubusercontent.com/ayushniraz/speech-bridge/main/public/ss.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## ✨ Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+* 🎙️ **Real-time audio recording** directly from the browser
+* 📝 **Instant speech-to-text transcription**
+* 🌍 **On-the-fly translation** into multiple languages
+* 🔒 **Privacy-first** — no server uploads, runs locally
+* ⚡ **Fast & lightweight** Vite-powered setup
+* 🖥️ **Clean, minimal UI** for distraction-free usage
+* 📱 **Responsive design** for desktop and mobile
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 🧠 Tech Stack
+
+* **React 19**
+* **TypeScript**
+* **Vite**
+* **Tailwind CSS**
+* **Web Speech API** (Browser-based audio & speech handling)
+
+---
+
+## 📦 Getting Started
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/ayushniraz/speech-bridge.git
+cd speech-bridge
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2️⃣ Install dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+### 3️⃣ Start the development server
+
+```bash
+npm run dev
+```
+
+The app will be available at:
+
+```txt
+http://localhost:5173
+```
+
+> 🔔 When prompted, **allow microphone access** in your browser.
+
+---
+
+## 📁 Project Structure
+
+```txt
+src/
+ ├─ components/      # Reusable UI components
+ ├─ hooks/           # Custom hooks (audio, speech, state)
+ ├─ pages/           # Page-level components
+ ├─ utils/           # Helper & utility functions
+ ├─ styles/          # Global Tailwind styles
+ ├─ App.tsx          # Root app component
+ └─ main.tsx         # Application entry point
+```
+
+---
+
+## 🛠️ Scripts
+
+```bash
+npm run dev      # Start development server
+npm run build    # Build for production
+npm run preview  # Preview production build
+npm run lint     # Run ESLint
+```
+
+---
+
+## 🚀 Roadmap
+
+* ⏳ Live transcription preview while speaking
+* 🌐 Language auto-detection
+* 💾 Export transcription as TXT / PDF
+* 🎧 Audio playback with text sync
+* 🌓 Dark mode support
+
+---
+
+## 👤 Author
+
+**Ayush Niraula**
+
+* GitHub: [https://github.com/ayushniraz](https://github.com/ayushniraz)
+
+---
+
